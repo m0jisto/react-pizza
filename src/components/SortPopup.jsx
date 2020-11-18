@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect, useRef } from 'react';
 
-const SortPopup = memo(({ items }) => {
+const SortPopup = ({ items, onClickType, order, onClickOrder }) => {
 	const [visiblePopup, setVisiblePopup] = useState(false);
 	const [activeItem, setActiveItem] = useState(0);
 	const sortRef = useRef();
@@ -8,23 +8,23 @@ const SortPopup = memo(({ items }) => {
 
 	const toggleVisiblePopup = () => setVisiblePopup(!visiblePopup);
 
-	const selectHandler = (index) => {
+	const selectType = (index, type) => {
 		setActiveItem(index);
+		onClickType(type);
 		setVisiblePopup(false);
 	};
+	const selectOrder = () => onClickOrder(order === 'desc' ? 'asc' : 'desc');
 
-	const handleOutsideClick = (e) =>
-		!e.path.includes(sortRef.current) && setVisiblePopup(false);
+	const handlerOutsideClick = (e) => !e.path.includes(sortRef.current) && setVisiblePopup(false);
 
-	useEffect(() => {
-		document.body.addEventListener('click', handleOutsideClick);
-	}, []);
+	useEffect(() => document.body.addEventListener('click', handlerOutsideClick), []);
 
 	return (
 		<div ref={sortRef} className="sort">
 			<div className="sort__label">
 				<svg
-					className={visiblePopup ? 'rotated' : ''}
+					onClick={selectOrder}
+					className={order === 'asc' ? 'rotated' : ''}
 					width="10"
 					height="6"
 					viewBox="0 0 10 6"
@@ -46,7 +46,7 @@ const SortPopup = memo(({ items }) => {
 							items.map(({ name, type }, index) => (
 								<li
 									className={activeItem === index ? 'active' : ''}
-									onClick={() => selectHandler(index)}
+									onClick={() => selectType(index, type)}
 									key={`${name}_${type}`}
 								>
 									{name}
@@ -57,6 +57,6 @@ const SortPopup = memo(({ items }) => {
 			)}
 		</div>
 	);
-});
+};
 
-export default SortPopup;
+export default memo(SortPopup);
