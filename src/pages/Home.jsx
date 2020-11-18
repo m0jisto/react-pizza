@@ -29,12 +29,12 @@ const Home = () => {
 	return (
 		<div className="container">
 			<div className="content__top">
-				<Categories onClickItem={selectCategory} items={categoryNames} />
+				<Categories items={categoryNames} activeCategory={category} onClickItem={selectCategory} />
 				<SortPopup
+					items={sortNames}
 					onClickType={selectSortByType}
 					order={sortBy.order}
 					onClickOrder={selectSortByOrder}
-					items={sortNames}
 				/>
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
