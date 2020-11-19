@@ -1,19 +1,16 @@
 import React, { memo, useState, useEffect, useRef } from 'react';
 
-const SortPopup = ({ items, onClickType, order, onClickOrder }) => {
+const SortPopup = ({ items, activeType, onClickType }) => {
 	const [visiblePopup, setVisiblePopup] = useState(false);
-	const [activeItem, setActiveItem] = useState(0);
 	const sortRef = useRef();
-	const activeLabel = items[activeItem].name;
+	const activeName = items.find(({ type }) => type === activeType).name;
 
 	const toggleVisiblePopup = () => setVisiblePopup(!visiblePopup);
 
-	const selectType = (index, type) => {
-		setActiveItem(index);
-		onClickType(type);
+	const selectType = (sort) => {
+		onClickType(sort);
 		setVisiblePopup(false);
 	};
-	const selectOrder = () => onClickOrder(order === 'desc' ? 'asc' : 'desc');
 
 	const handlerOutsideClick = (e) => !e.path.includes(sortRef.current) && setVisiblePopup(false);
 
@@ -23,8 +20,7 @@ const SortPopup = ({ items, onClickType, order, onClickOrder }) => {
 		<div ref={sortRef} className="sort">
 			<div className="sort__label">
 				<svg
-					onClick={selectOrder}
-					className={order === 'asc' ? 'rotated' : ''}
+					className={visiblePopup ? 'rotated' : ''}
 					width="10"
 					height="6"
 					viewBox="0 0 10 6"
@@ -37,16 +33,16 @@ const SortPopup = ({ items, onClickType, order, onClickOrder }) => {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span onClick={toggleVisiblePopup}>{activeLabel}</span>
+				<span onClick={toggleVisiblePopup}>{activeName}</span>
 			</div>
 			{visiblePopup && (
 				<div className="sort__popup">
 					<ul>
 						{items &&
-							items.map(({ name, type }, index) => (
+							items.map(({ name, type, order }) => (
 								<li
-									className={activeItem === index ? 'active' : ''}
-									onClick={() => selectType(index, type)}
+									className={activeType === type ? 'active' : ''}
+									onClick={() => selectType({ type, order })}
 									key={`${name}_${type}`}
 								>
 									{name}

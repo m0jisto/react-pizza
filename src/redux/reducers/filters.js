@@ -8,21 +8,10 @@ const initialState = {
 
 const filtersReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case 'SET_SORT_BY_TYPE':
+		case 'SET_SORT_BY':
 			return {
 				...state,
-				sortBy: {
-					...state.sortBy,
-					type: action.payload,
-				},
-			};
-		case 'SET_SORT_BY_ORDER':
-			return {
-				...state,
-				sortBy: {
-					...state.sortBy,
-					order: action.payload,
-				},
+				sortBy: action.payload,
 			};
 		case 'SET_CATEGORY':
 			return {

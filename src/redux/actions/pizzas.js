@@ -11,7 +11,7 @@ export const setPizzas = (items) => ({
 });
 
 export const fetchPizzas = (category, sortBy) => (dispatch) => {
-	console.log(category, sortBy);
+	dispatch(setLoading(false));
 
 	axios
 		.get(`pizzas?${category !== null ? `category=${category}` : ''}&_sort=${sortBy.type}&_order=${sortBy.order}`)

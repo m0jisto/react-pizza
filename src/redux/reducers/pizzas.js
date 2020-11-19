@@ -1,6 +1,6 @@
 const initialState = {
 	pizzas: [],
-	isLoaded: false,
+	isLoading: false,
 	isError: false,
 };
 
@@ -14,7 +14,7 @@ const pizzasReducer = (state = initialState, action) => {
 		case 'SET_LOADING':
 			return {
 				...state,
-				isLoaded: action.payload,
+				isLoading: action.payload,
 			};
 		case 'SET_ERROR':
 			return {
