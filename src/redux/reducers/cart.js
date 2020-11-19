@@ -12,7 +12,10 @@ const cartReducer = (state = initialState, action) => {
 				totalPrice: state.totalPrice + action.payload.price,
 				totalCount: state.totalCount + 1,
 				items: {
-					[action.payload.id]: [...state.items[action.payload.id], action.payload],
+					...state.items,
+					[action.payload.id]: !state.items[action.payload.id]
+						? action.payload
+						: [...state.items[action.payload.id], action.payload]
 				},
 			};
 		default:
