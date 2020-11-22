@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { Button } from './';
 
-const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, onAddPizzaCart, addedCount }) => {
+const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, onClickPizzaCart, addedCount }) => {
 	const availableTypes = ['тонкое', 'традиционное'];
 	const availableSizes = [26, 30, 40];
 
@@ -13,7 +13,16 @@ const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, onAddPizzaCart, a
 
 	const selectTypeHandler = (index) => setActiveType(index);
 	const selectSizeHandler = (size) => setActiveSize(size);
-	const onAddPizza = (pizza) => onAddPizzaCart({ id, name, imageUrl, price, type: availableTypes[activeType], size: availableSizes[activeSize] })
+	const onAddPizza = () => {
+		onClickPizzaCart({
+			id,
+			name,
+			imageUrl,
+			price,
+			types: availableTypes[activeType],
+			size: activeSize,
+		});
+	};
 
 	return (
 		<div className="pizza-block">
@@ -59,7 +68,7 @@ const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, onAddPizzaCart, a
 						/>
 					</svg>
 					<span>Добавить</span>
-					{addedCount && <i>{addedCount}</i>}
+					{addedCount !== 0 && <i>{addedCount}</i>}
 				</Button>
 			</div>
 		</div>
@@ -67,13 +76,14 @@ const PizzaBlock = ({ id, name, imageUrl, price, types, sizes, onAddPizzaCart, a
 };
 
 PizzaBlock.propTypes = {
+	id: PropTypes.number,
 	name: PropTypes.string.isRequired,
 	imageUrl: PropTypes.string.isRequired,
 	price: PropTypes.number.isRequired,
 	types: PropTypes.arrayOf(PropTypes.number).isRequired,
 	sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
 	onAddPizzaCart: PropTypes.func,
-	addedCount: PropTypes.of([PropTypes. number, undefined]),
+	addedCount: PropTypes.number,
 };
 
 PizzaBlock.defaultProps = {

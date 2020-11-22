@@ -1,6 +1,6 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import Button from './Button';
 
@@ -12,7 +12,7 @@ const Header = () => {
 	return (
 		<div className="header">
 			<div className="container">
-				<Link to="/">
+				<NavLink to="/">
 					<div className="header__logo">
 						<img src={logo} alt="Pizza logo" />
 						<div>
@@ -20,8 +20,8 @@ const Header = () => {
 							<p>самая вкусная пицца во вселенной</p>
 						</div>
 					</div>
-				</Link>
-				<Link to="/cart">
+				</NavLink>
+				<NavLink to="/cart">
 					<div className="header__cart">
 						<Button className="button--cart">
 							<span>{totalPrice} ₽</span>
@@ -58,7 +58,7 @@ const Header = () => {
 							<span>{totalCount}</span>
 						</Button>
 					</div>
-				</Link>
+				</NavLink>
 			</div>
 		</div>
 	);

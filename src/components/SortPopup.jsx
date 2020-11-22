@@ -1,4 +1,5 @@
 import React, { memo, useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 
 const SortPopup = ({ items, activeType, onClickType }) => {
 	const [visiblePopup, setVisiblePopup] = useState(false);
@@ -53,6 +54,12 @@ const SortPopup = ({ items, activeType, onClickType }) => {
 			)}
 		</div>
 	);
+};
+
+SortPopup.propTypes = {
+	items: PropTypes.arrayOf(PropTypes.object),
+	activeType: PropTypes.string,
+	onClickType: PropTypes.func,
 };
 
 export default memo(SortPopup);

@@ -195,13 +195,14 @@ body {
 			}
 
 			.button {
-				svg {
+				a {
 					width: 11.5px;
 					height: 11.5px;
 					position: relative;
 				}
 				&:hover,
 				&:active {
+					color: white;
 					border-color: darken($color: $gray-line, $amount: 80);
 					background-color: darken($color: $gray-line, $amount: 80);
 				}
